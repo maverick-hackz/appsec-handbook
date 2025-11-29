@@ -1,1 +1,50 @@
-# TODO: phase 2
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+.tox/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Scanner artifacts
+*.sarif
+trivy-results.*
+semgrep.json
+semgrep-results.*
+zap-report.*
+zap-results.*
+gitleaks-report.*
+
+# Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.p12
+*.pfx
