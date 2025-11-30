@@ -2,7 +2,7 @@
 
 ## Author
 
-<TODO: name>
+Savva Shevchuk
 
 ## Focus areas
 
@@ -20,7 +20,7 @@
 
 ## Contact
 
-- <TODO: email or social>
+- <shevchuk.savva@gmail.com>
 
 ## Disclaimer
 
