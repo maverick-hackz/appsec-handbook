@@ -15,8 +15,8 @@ Savva Shevchuk
 
 ## Stack
 
-- Languages: <TODO>
-- Tooling: <TODO>
+- Languages: Java, Python, Go, JavaScript/TypeScript
+- Tooling: Semgrep, Trivy, Burp Suite, Frida, Sigstore, HashiCorp Vault
 
 ## Contact
 
