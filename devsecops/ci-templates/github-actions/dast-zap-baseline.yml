@@ -1,1 +1,41 @@
-# dast-zap-baseline.yml: placeholder; content lands in phase 6
+# dast-zap-baseline.yml -- OWASP ZAP baseline scan against staging.
+# Permissions required:
+#   contents: read
+#   issues: write           (ZAP action can open issues on findings; optional)
+# Secrets: none.
+# Behaviour:
+#   Manual or scheduled DAST baseline (passive + light active checks).
+#   Target URL is parameterized via workflow_dispatch input.
+
+name: DAST (ZAP Baseline)
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'HTTPS URL of the staging environment to scan'
+        required: true
+        default: 'https://staging.example.com'
+  schedule:
+    - cron: '0 3 * * 1'      # weekly, Monday 03:00 UTC
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  zap-baseline:
+    name: ZAP baseline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: ZAP baseline scan
+        uses: zaproxy/action-baseline@v0.15.0
+        with:
+          target: ${{ inputs.target_url || 'https://staging.example.com' }}
+          rules_file_name: .zap/rules.tsv
+          cmd_options: '-a -j'
+          fail_action: true
+          allow_issue_writing: true

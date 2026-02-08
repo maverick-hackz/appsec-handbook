@@ -1,1 +1,80 @@
-# sign-cosign.yml: placeholder; content lands in phase 6
+# sign-cosign.yml -- Keyless signing of a container image with Sigstore.
+# Permissions required:
+#   contents: read
+#   packages: write         (push image manifests / signatures to GHCR)
+#   id-token: write         (OIDC for Sigstore Fulcio)
+# Secrets: GITHUB_TOKEN (provided automatically).
+# Behaviour:
+#   1) Build and push image by tag.
+#   2) Sign image by digest (immutable) with cosign keyless via OIDC.
+#   3) Generate CycloneDX SBOM and attest it with cosign attest.
+
+name: Build, Sign, and Attest Image
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  build-sign-attest:
+    name: Build / sign / attest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
+          # provenance / sbom flags managed by build-push-action defaults
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v4
+
+      - name: Sign image by digest (keyless)
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          # Anchor the signature to the immutable digest, not the mutable tag.
+          cosign sign --yes "${IMAGE}@${DIGEST}"
+
+      - name: Generate CycloneDX SBOM from image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ env.IMAGE }}:${{ github.sha }}
+          format: cyclonedx-json
+          output-file: sbom.cdx.json
+
+      - name: Attest SBOM (cosign attest)
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          cosign attest --yes \
+            --predicate sbom.cdx.json \
+            --type cyclonedx \
+            "${IMAGE}@${DIGEST}"

@@ -1,1 +1,31 @@
-# sast-semgrep.gitlab-ci.yml: placeholder; content lands in phase 6
+# sast-semgrep.gitlab-ci.yml -- Semgrep SAST stage for GitLab CI.
+# Include with:
+#   include:
+#     - local: devsecops/ci-templates/gitlab-ci/sast-semgrep.gitlab-ci.yml
+# Required GitLab variables:
+#   SEMGREP_APP_TOKEN (optional; CI/CD variable, masked, protected)
+# Behaviour:
+#   Runs on merge requests and on the default branch; uploads the
+#   SARIF report under GitLab's `sast` report artefact for the
+#   security dashboard.
+
+sast:semgrep:
+  stage: test
+  image: semgrep/semgrep:1.163.0
+  variables:
+    SEMGREP_RULES: "p/owasp-top-ten p/cwe-top-25"
+  script:
+    - semgrep ci
+        --sarif --output semgrep.sarif
+        --config "${SEMGREP_RULES}"
+        --config devsecops/semgrep-rules/
+  artifacts:
+    when: always
+    reports:
+      sast: semgrep.sarif
+    paths:
+      - semgrep.sarif
+    expire_in: 30 days
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

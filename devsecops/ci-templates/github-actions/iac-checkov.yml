@@ -1,1 +1,44 @@
-# iac-checkov.yml: placeholder; content lands in phase 6
+# iac-checkov.yml -- Checkov for Terraform / K8s / Dockerfile / CloudFormation.
+# Permissions required:
+#   contents: read
+#   security-events: write   (SARIF upload)
+# Secrets: none.
+
+name: IaC (Checkov)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  checkov:
+    name: Checkov
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: .
+          framework: terraform,kubernetes,dockerfile,cloudformation
+          output_format: sarif
+          output_file_path: ./
+          soft_fail: false
+          quiet: true
+          # Add per-check skips here as the project encounters them:
+          # skip_check: CKV_DOCKER_2
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results_sarif.sarif
+          category: checkov

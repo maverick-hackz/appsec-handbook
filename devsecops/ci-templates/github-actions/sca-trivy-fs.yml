@@ -1,1 +1,49 @@
-# sca-trivy-fs.yml: placeholder; content lands in phase 6
+# sca-trivy-fs.yml -- Trivy filesystem SCA on dependency manifests.
+# Permissions required:
+#   contents: read
+#   security-events: write   (SARIF upload)
+# Secrets: none.
+# Behaviour:
+#   Fails the job on HIGH or CRITICAL CVEs in dependency manifests
+#   (lockfiles for npm / pip / Go modules / Maven / Gradle / etc).
+#   Scheduled run catches new CVEs in unchanged dependencies.
+
+name: SCA (Trivy filesystem)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '17 4 * * 1'    # Monday 04:17 UTC
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  trivy-fs:
+    name: Trivy filesystem
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Trivy filesystem scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: sarif
+          output: trivy-fs.sarif
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true        # surface only what can be acted on
+          exit-code: '1'
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-fs.sarif
+          category: trivy-fs

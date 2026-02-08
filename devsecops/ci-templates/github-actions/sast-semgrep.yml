@@ -1,1 +1,53 @@
-# sast-semgrep.yml: placeholder; content lands in phase 6
+# sast-semgrep.yml -- Semgrep SAST on push and PR.
+# Permissions required:
+#   contents: read           (checkout the repository)
+#   security-events: write   (upload SARIF to GitHub Code Scanning)
+#   pull-requests: read      (annotate PR with findings, optional)
+# Secrets:
+#   SEMGREP_APP_TOKEN        (optional; enables Semgrep AppSec Platform features)
+# Behaviour:
+#   `semgrep ci` exits non-zero on findings above the configured severity
+#   threshold; SARIF is uploaded regardless of exit status.
+
+name: SAST (Semgrep)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+  pull-requests: read
+
+jobs:
+  semgrep:
+    name: Semgrep
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep:1.163.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          # Full history -> Semgrep can run diff-aware scans on PRs.
+          fetch-depth: 0
+
+      - name: Run Semgrep
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        run: |
+          semgrep ci \
+            --sarif --output semgrep.sarif \
+            --config p/owasp-top-ten \
+            --config p/cwe-top-25 \
+            --config devsecops/semgrep-rules/
+
+      - name: Upload SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
