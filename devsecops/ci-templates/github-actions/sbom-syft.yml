@@ -1,1 +1,41 @@
-# sbom-syft.yml: placeholder; content lands in phase 6
+# sbom-syft.yml -- Generate CycloneDX SBOM with Syft and upload as artifact.
+# Permissions required:
+#   contents: read
+# Secrets: none.
+# Behaviour:
+#   Produces sbom.cdx.json from the repository contents and uploads it
+#   as a workflow artifact retained for 90 days. For an image SBOM
+#   that travels with the image, see sign-cosign.yml (cosign attest).
+
+name: SBOM (Syft / CycloneDX)
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Generate CycloneDX SBOM from filesystem
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: sbom.cdx.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: sbom.cdx.json
+          retention-days: 90
