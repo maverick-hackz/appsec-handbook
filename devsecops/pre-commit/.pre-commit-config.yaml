@@ -1,1 +1,83 @@
-# .pre-commit-config.yaml: placeholder; content lands in phase 6
+# .pre-commit-config.yaml -- local hooks for AppSec Handbook contributors.
+# Install: `pip install pre-commit && pre-commit install`.
+# Run on all files: `pre-commit run --all-files`.
+# Versions verified against upstream tags at the time of writing
+# (May 2026). Refresh with `pre-commit autoupdate`.
+
+repos:
+  # Generic source hygiene.
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: detect-private-key
+
+  # Secret scanning (pattern-based, fast).
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
+  # Secret scanning (entropy-based; baseline-friendly).
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+
+  # Python lint + format.
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.13
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # Python SAST.
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.9.4
+    hooks:
+      - id: bandit
+        args: ["-c", "pyproject.toml"]
+        additional_dependencies: ["bandit[toml]"]
+
+  # Shell scripts.
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+
+  # Dockerfile linting.
+  - repo: https://github.com/AleksaC/hadolint-py
+    rev: v2.14.0
+    hooks:
+      - id: hadolint
+
+  # YAML linting.
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+
+  # Markdown linting.
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.22.1
+    hooks:
+      - id: markdownlint-cli2
+
+  # Multi-language SAST with the project's custom rules.
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v1.163.0
+    hooks:
+      - id: semgrep
+        args:
+          - "--config"
+          - "devsecops/semgrep-rules/"
+          - "--error"
+          - "--quiet"
