@@ -1,1 +1,28 @@
-# python-eval-exec.test.yaml: placeholder; content lands in phase 6
+# Test cases for: python-eval-exec
+
+cases:
+  - language: python
+    positive: |
+      # ruleid: python-eval-exec
+      result = eval(user_input)
+    negative: |
+      import ast
+      # ok: python-eval-exec
+      result = ast.literal_eval(user_input)
+
+  - language: python
+    positive: |
+      # ruleid: python-eval-exec
+      exec(user_supplied_code)
+    negative: |
+      import json
+      # ok: python-eval-exec
+      data = json.loads(user_supplied_string)
+
+  - language: python
+    positive: |
+      # ruleid: python-eval-exec
+      x = eval("1 + 2")
+    negative: |
+      # ok: python-eval-exec
+      x = 1 + 2

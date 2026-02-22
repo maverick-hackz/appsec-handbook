@@ -1,1 +1,21 @@
-# python-eval-exec.yml: placeholder; content lands in phase 6
+rules:
+  - id: python-eval-exec
+    message: |
+      `eval()` / `exec()` executes arbitrary Python code from its
+      argument. On attacker-controlled input this is direct code
+      injection. Use `ast.literal_eval` for parsing literal values,
+      or a structured parser (json, configparser) for everything else.
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-94: Improper Control of Generation of Code (Code Injection)"
+      owasp: "A03:2021 - Injection"
+      confidence: HIGH
+      category: security
+      references:
+        - https://cwe.mitre.org/data/definitions/94.html
+        - https://docs.python.org/3/library/ast.html#ast.literal_eval
+    patterns:
+      - pattern-either:
+          - pattern: eval(...)
+          - pattern: exec(...)

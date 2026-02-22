@@ -1,1 +1,37 @@
-# go-sql-string-concat.yml: placeholder; content lands in phase 6
+rules:
+  - id: go-sql-string-concat
+    message: |
+      SQL built with string concatenation or `fmt.Sprintf` and passed
+      to `db.Query` / `db.Exec` / `*Context` variants is vulnerable to
+      SQL injection. Use parameterized queries with placeholders
+      (`?` for MySQL/SQLite, `$1` for PostgreSQL).
+    languages: [go]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-89: SQL Injection"
+      owasp: "A03:2021 - Injection"
+      confidence: HIGH
+      category: security
+      references:
+        - https://cwe.mitre.org/data/definitions/89.html
+        - https://pkg.go.dev/database/sql
+    patterns:
+      - pattern-either:
+          - pattern: $DB.Query("..." + $X)
+          - pattern: $DB.Query($X + "...")
+          - pattern: $DB.QueryContext($CTX, "..." + $X)
+          - pattern: $DB.QueryContext($CTX, $X + "...")
+          - pattern: $DB.QueryRow("..." + $X)
+          - pattern: $DB.QueryRow($X + "...")
+          - pattern: $DB.QueryRowContext($CTX, "..." + $X)
+          - pattern: $DB.QueryRowContext($CTX, $X + "...")
+          - pattern: $DB.Exec("..." + $X)
+          - pattern: $DB.Exec($X + "...")
+          - pattern: $DB.ExecContext($CTX, "..." + $X)
+          - pattern: $DB.ExecContext($CTX, $X + "...")
+          - pattern: $DB.Query(fmt.Sprintf(...))
+          - pattern: $DB.QueryContext($CTX, fmt.Sprintf(...))
+          - pattern: $DB.QueryRow(fmt.Sprintf(...))
+          - pattern: $DB.QueryRowContext($CTX, fmt.Sprintf(...))
+          - pattern: $DB.Exec(fmt.Sprintf(...))
+          - pattern: $DB.ExecContext($CTX, fmt.Sprintf(...))
