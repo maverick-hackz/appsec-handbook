@@ -1,1 +1,25 @@
-# js-disabled-tls-verification.yml: placeholder; content lands in phase 6
+rules:
+  - id: js-disabled-tls-verification
+    message: |
+      `rejectUnauthorized: false` disables TLS certificate verification
+      and exposes the connection to man-in-the-middle attackers.
+      Production code must verify peer certificates. Setting
+      `NODE_TLS_REJECT_UNAUTHORIZED=0` has the same effect globally.
+    languages: [javascript, typescript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-295: Improper Certificate Validation"
+      owasp: "A07:2021 - Identification and Authentication Failures"
+      confidence: HIGH
+      category: security
+      references:
+        - https://cwe.mitre.org/data/definitions/295.html
+        - https://nodejs.org/api/tls.html
+    patterns:
+      - pattern-either:
+          - pattern: |
+              { ..., rejectUnauthorized: false, ... }
+          - pattern: |
+              $OBJ.rejectUnauthorized = false
+          - pattern: process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+          - pattern: process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0"

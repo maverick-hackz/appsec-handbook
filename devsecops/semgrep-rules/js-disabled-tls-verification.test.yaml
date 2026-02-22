@@ -1,1 +1,36 @@
-# js-disabled-tls-verification.test.yaml: placeholder; content lands in phase 6
+# Test cases for: js-disabled-tls-verification
+
+cases:
+  - language: javascript
+    positive: |
+      // ruleid: js-disabled-tls-verification
+      const https = require("https");
+      const agent = new https.Agent({ rejectUnauthorized: false });
+    negative: |
+      // ok: js-disabled-tls-verification
+      const https = require("https");
+      const agent = new https.Agent({ ca: trustedCAs });
+
+  - language: javascript
+    positive: |
+      // ruleid: js-disabled-tls-verification
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    negative: |
+      // ok: js-disabled-tls-verification
+      process.env.NODE_EXTRA_CA_CERTS = "/etc/ssl/ca.pem";
+
+  - language: typescript
+    positive: |
+      // ruleid: js-disabled-tls-verification
+      const options = {
+        host: "api.example.com",
+        port: 443,
+        rejectUnauthorized: false,
+      };
+    negative: |
+      // ok: js-disabled-tls-verification
+      const options = {
+        host: "api.example.com",
+        port: 443,
+        ca: fs.readFileSync("/etc/ssl/internal-ca.pem"),
+      };

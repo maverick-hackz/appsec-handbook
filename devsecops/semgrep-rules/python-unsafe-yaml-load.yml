@@ -1,1 +1,25 @@
-# python-unsafe-yaml-load.yml: placeholder; content lands in phase 6
+rules:
+  - id: python-unsafe-yaml-load
+    message: |
+      `yaml.load()` without a safe loader deserializes arbitrary Python
+      objects from the input, allowing remote code execution on
+      attacker-controlled YAML. Use `yaml.safe_load(...)` or
+      `yaml.load(..., Loader=yaml.SafeLoader)`.
+    languages: [python]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      owasp: "A08:2021 - Software and Data Integrity Failures"
+      confidence: HIGH
+      category: security
+      references:
+        - https://cwe.mitre.org/data/definitions/502.html
+        - https://pyyaml.org/wiki/PyYAMLDocumentation
+    patterns:
+      - pattern-either:
+          - pattern: yaml.load($X)
+          - pattern: yaml.load($X, Loader=yaml.Loader)
+          - pattern: yaml.load($X, yaml.Loader)
+          - pattern: yaml.load($X, Loader=yaml.UnsafeLoader)
+          - pattern: yaml.load($X, yaml.UnsafeLoader)
+          - pattern: yaml.load($X, Loader=yaml.FullLoader)

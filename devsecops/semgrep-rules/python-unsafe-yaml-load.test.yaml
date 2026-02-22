@@ -1,1 +1,32 @@
-# python-unsafe-yaml-load.test.yaml: placeholder; content lands in phase 6
+# Test cases for: python-unsafe-yaml-load
+
+cases:
+  - language: python
+    positive: |
+      import yaml
+      # ruleid: python-unsafe-yaml-load
+      data = yaml.load(request.body)
+    negative: |
+      import yaml
+      # ok: python-unsafe-yaml-load
+      data = yaml.safe_load(request.body)
+
+  - language: python
+    positive: |
+      import yaml
+      # ruleid: python-unsafe-yaml-load
+      data = yaml.load(stream, Loader=yaml.Loader)
+    negative: |
+      import yaml
+      # ok: python-unsafe-yaml-load
+      data = yaml.load(stream, Loader=yaml.SafeLoader)
+
+  - language: python
+    positive: |
+      import yaml
+      # ruleid: python-unsafe-yaml-load
+      data = yaml.load(stream, Loader=yaml.FullLoader)
+    negative: |
+      import yaml
+      # ok: python-unsafe-yaml-load
+      data = yaml.load(stream, Loader=yaml.CSafeLoader)
