@@ -1,1 +1,65 @@
-# network-policy-default-deny.yaml: placeholder; content lands in phase 6
+# network-policy-default-deny.yaml
+# Default-deny NetworkPolicy for a namespace: blocks all ingress and
+# all egress until a more specific NetworkPolicy permits a flow.
+#
+# Apply per namespace that should be locked down:
+#   kubectl -n my-service apply -f network-policy-default-deny.yaml
+#
+# Requires a NetworkPolicy-enforcing CNI (Calico, Cilium, Antrea,
+# Weave Net). kube-router and stock kube-proxy DO NOT enforce
+# NetworkPolicy.
+#
+# After applying default-deny, add per-workload allow policies that
+# explicitly permit each required flow (app -> db, app -> dns, etc).
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: my-service
+spec:
+  podSelector: {}            # selects all pods in the namespace
+  policyTypes:
+    - Ingress
+  ingress: []                # empty -> deny all ingress
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-egress
+  namespace: my-service
+spec:
+  podSelector: {}            # selects all pods in the namespace
+  policyTypes:
+    - Egress
+  egress: []                 # empty -> deny all egress
+
+# After applying the two policies above, allow CoreDNS so pods can
+# resolve in-cluster names. Remove the example below if CoreDNS lives
+# in a different namespace or under a different label scheme.
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: my-service
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
