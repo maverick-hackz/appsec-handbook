@@ -2,7 +2,7 @@
   "default": true,
   "MD013": false,
   "MD033": {
-    "allowed_elements": ["details", "summary"]
+    "allowed_elements": ["details", "summary", "div", "img"]
   },
-  "MD041": true
+  "MD041": false
 }
