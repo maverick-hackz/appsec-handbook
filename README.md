@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="./banner.png" alt="AppSec Handbook">
+</div>
+
 # AppSec Handbook
 
 A working reference for application security and secure SDLC: secure coding,
