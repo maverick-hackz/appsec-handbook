@@ -120,8 +120,8 @@ deployment.
 
 - SLSA: <https://slsa.dev/spec/>
 - Sigstore: <https://docs.sigstore.dev/>
-- cosign: <https://docs.sigstore.dev/cosign/overview/>
+- cosign: <https://docs.sigstore.dev/cosign/signing/overview/>
 - OWASP Top 10 CI/CD Security Risks: <https://owasp.org/www-project-top-10-ci-cd-security-risks/>
 - GitHub Actions security hardening: <https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions>
 - Kubernetes ImagePolicyWebhook: <https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook>
-- CNCF Software Supply Chain Best Practices: <https://github.com/cncf/tag-security/blob/main/supply-chain-security/supply-chain-security-paper/CNCF_SSCP_v1.pdf>
+- CNCF Software Supply Chain Best Practices: <https://tag-security.cncf.io/community/working-groups/supply-chain-security/supply-chain-security-paper-v2/Software_Supply_Chain_Practices_whitepaper_v2.pdf>

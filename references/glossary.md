@@ -203,5 +203,5 @@ throughout this handbook.
 ## References
 
 - NIST glossary: <https://csrc.nist.gov/glossary>
-- ENISA glossary: <https://www.enisa.europa.eu/topics/risk-management/current-risk/risk-management-inventory/glossary>
+- ENISA glossary: <https://www.enisa.europa.eu/topics/risk-management>
 - OWASP Glossary (per project): <https://owasp.org/>

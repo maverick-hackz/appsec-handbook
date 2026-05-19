@@ -68,4 +68,4 @@ expensive path cheaper does not help.
 
 - Bruce Schneier — Attack Trees (Dr. Dobb's, Dec 1999): <https://www.schneier.com/academic/archives/1999/12/attack_trees.html>
 - Adam Shostack — Threat Modeling: Designing for Security (Wiley, 2014), Chapter 4
-- Mauw and Oostdijk — Foundations of Attack Trees: <https://satoss.uni.lu/members/sjouke/papers/MO05.pdf>
+- Mauw and Oostdijk — Foundations of Attack Trees: <https://satoss.uni.lu/members/sjouke/papers/MaOo05.pdf>

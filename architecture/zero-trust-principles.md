@@ -90,7 +90,7 @@ wait for the full picture to land before deploying step 1.
 ## References
 
 - NIST SP 800-207 (Zero Trust Architecture): <https://csrc.nist.gov/publications/detail/sp/800-207/final>
-- NIST SP 800-207A (Zero Trust Architecture for cloud-native applications): <https://csrc.nist.gov/publications/detail/sp/800-207a/final>
+- NIST SP 800-207A (Zero Trust Architecture for cloud-native applications): <https://csrc.nist.gov/pubs/sp/800/207/a/final>
 - CISA Zero Trust Maturity Model: <https://www.cisa.gov/zero-trust-maturity-model>
 - BeyondCorp (Google): <https://cloud.google.com/beyondcorp>
 - Forrester ZTX framework: <https://www.forrester.com/report/the-forrester-wave-zero-trust-platform-providers/>

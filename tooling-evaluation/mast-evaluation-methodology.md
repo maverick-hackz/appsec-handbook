@@ -99,4 +99,4 @@ how their dynamic component handles instrumentation.
 - Objection: <https://github.com/sensepost/objection>
 - Android security best practices: <https://developer.android.com/topic/security/best-practices>
 - Apple Platform Security: <https://support.apple.com/guide/security/welcome/web>
-- OWASP Mobile Security Testing Guide checklists (per MASVS chapter): <https://github.com/OWASP/owasp-mastg/tree/master/Checklists>
+- OWASP Mobile Security Testing Guide checklists (per MASVS chapter): <https://mas.owasp.org/checklists/>

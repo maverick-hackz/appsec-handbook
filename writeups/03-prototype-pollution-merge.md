@@ -139,7 +139,7 @@ parsers, default option resolution).
 - CVE-2019-10744: <https://nvd.nist.gov/vuln/detail/CVE-2019-10744>
 - CVE-2020-8203: <https://nvd.nist.gov/vuln/detail/CVE-2020-8203>
 - CWE-1321: <https://cwe.mitre.org/data/definitions/1321.html>
-- OWASP -- Prototype Pollution: <https://owasp.org/www-community/attacks/Prototype_Pollution>
+- OWASP -- Prototype Pollution: <https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html>
 - PortSwigger Web Security Academy -- Prototype pollution: <https://portswigger.net/web-security/prototype-pollution>
 - Node.js security best practices: <https://nodejs.org/en/learn/getting-started/security-best-practices>
 - `../secure-coding/javascript-typescript/prototype-pollution.md`

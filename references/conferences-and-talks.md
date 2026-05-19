@@ -70,7 +70,7 @@ cite the talk URL inline. -->
 - **Black Hat YouTube** -- <https://www.youtube.com/@BlackHatOfficialYT>
 - **DEF CON YouTube** -- <https://www.youtube.com/@DEFCONConference>
 - **USENIX YouTube** -- <https://www.youtube.com/@usenix>
-- **IEEE Security YouTube** -- <https://www.youtube.com/@ieeeoakland>
+- **IEEE Security YouTube** -- <https://www.youtube.com/@ieeessp>
 
 ## Community resources
 
@@ -97,5 +97,5 @@ cite the talk URL inline. -->
 - OWASP events index: <https://owasp.org/events/>
 - Black Hat archives: <https://www.blackhat.com/html/archives.html>
 - USENIX Security proceedings: <https://www.usenix.org/conferences/usenix-security-symposium/proceedings>
-- NDSS proceedings: <https://www.ndss-symposium.org/ndss-program/>
+- NDSS proceedings: <https://www.ndss-symposium.org/>
 - PortSwigger Top 10 Web Hacking Techniques (annual): <https://portswigger.net/research/top-10-web-hacking-techniques>

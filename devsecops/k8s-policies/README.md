@@ -39,4 +39,4 @@ No single layer is sufficient.
 - OPA Gatekeeper: <https://open-policy-agent.github.io/gatekeeper/website/docs/>
 - Kyverno: <https://kyverno.io/docs/>
 - Falco: <https://falco.org/docs/>
-- CNCF Cloud-Native Security Whitepaper: <https://github.com/cncf/tag-security/tree/main/security-whitepaper>
+- CNCF Cloud-Native Security Whitepaper: <https://tag-security.cncf.io/community/resources/security-whitepaper/>
