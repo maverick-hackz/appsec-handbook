@@ -182,5 +182,5 @@ spec:
 - SLSA GitHub Generator: <https://github.com/slsa-framework/slsa-github-generator>
 - slsa-verifier: <https://github.com/slsa-framework/slsa-verifier>
 - in-toto specification: <https://in-toto.io/>
-- Sigstore cosign: <https://docs.sigstore.dev/cosign/overview/>
+- Sigstore cosign: <https://docs.sigstore.dev/cosign/signing/overview/>
 - Kyverno verifyImages: <https://kyverno.io/docs/writing-policies/verify-images/>

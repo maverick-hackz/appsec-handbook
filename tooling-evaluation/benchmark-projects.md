@@ -92,6 +92,6 @@ evaluating AppSec tools. Use a mix of standardised benchmarks
 - OWASP WebGoat: <https://owasp.org/www-project-webgoat/>
 - OWASP Juice Shop: <https://owasp.org/www-project-juice-shop/>
 - OWASP crAPI: <https://owasp.org/www-project-crapi/>
-- OWASP DVGA: <https://owasp.org/www-project-damn-vulnerable-graphql-application/>
+- OWASP DVGA: <https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application>
 - OWASP iGoat: <https://owasp.org/www-project-igoat-tool/>
 - VulHub: <https://vulhub.org/>

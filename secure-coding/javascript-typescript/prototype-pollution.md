@@ -106,7 +106,7 @@ Library posture:
 
 ## References
 
-- OWASP — Prototype Pollution: <https://owasp.org/www-community/attacks/Prototype_Pollution>
+- OWASP — Prototype Pollution: <https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html>
 - CWE-1321: <https://cwe.mitre.org/data/definitions/1321.html>
 - Node.js security best practices: <https://nodejs.org/en/learn/getting-started/security-best-practices>
 - Snyk research: prototype pollution overview: <https://snyk.io/research/>
