@@ -1,0 +1,74 @@
+# Build and deploy the handbook to GitHub Pages.
+#
+# Prerequisite (one-time, in Settings -> Pages):
+#   Source: "GitHub Actions" (not "Deploy from a branch").
+#
+# The first deploy will replace the default Jekyll rendering with a
+# mkdocs-material site at https://maverick-hackz.github.io/appsec-handbook/.
+
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.md"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history is required by the git-revision-date-localized plugin
+          # so it can compute creation and last-modified dates from commits.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-docs.txt
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --no-cache-dir -r requirements-docs.txt
+
+      - name: Build site
+        # `mkdocs build` (without --strict) until the warning count across
+        # all sections is zero. See the note at the bottom of mkdocs.yml.
+        run: mkdocs build --clean --verbose
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  deploy:
+    name: deploy
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

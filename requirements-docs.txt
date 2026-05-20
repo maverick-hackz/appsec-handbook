@@ -1,0 +1,14 @@
+# Documentation toolchain for the GitHub Pages build.
+# Used by .github/workflows/pages.yml.
+#
+# Constraints use compatible-version ranges so Dependabot can propose
+# minor and patch updates as PRs. For reproducible production builds, run
+# `pip-compile requirements-docs.txt -o requirements-docs.lock --generate-hashes`
+# and consume the lock file in CI instead.
+
+mkdocs-material>=9.5,<10
+mkdocs-awesome-pages-plugin>=2.9,<3
+mkdocs-section-index>=0.3,<1
+mkdocs-same-dir>=0.1,<2
+mkdocs-git-revision-date-localized-plugin>=1.2,<2
+pymdown-extensions>=10.11,<11
