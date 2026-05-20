@@ -94,7 +94,7 @@ jobs:
 
       - name: Create or update tracking issue
         if: steps.lychee.outputs.exit_code != '0'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: "link-rot: scheduled lychee report (${{ github.run_id }})"
           content-filepath: ./lychee-report.md
