@@ -6,7 +6,7 @@
 # `pip-compile requirements-docs.txt -o requirements-docs.lock --generate-hashes`
 # and consume the lock file in CI instead.
 
-mkdocs-material>=9.5,<10
+mkdocs-material>=9.7.6,<10
 mkdocs-awesome-pages-plugin>=2.9,<3
 mkdocs-section-index>=0.3,<1
 mkdocs-same-dir>=0.1,<2
