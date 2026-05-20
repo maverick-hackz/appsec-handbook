@@ -1,0 +1,18 @@
+title: AppSec Handbook
+
+nav:
+  - Home: README.md
+  - secure-coding
+  - threat-modeling
+  - secure-sdlc
+  - devsecops
+  - frameworks
+  - architecture
+  - tooling-evaluation
+  - writeups
+  - references
+  - About:
+      - About: ABOUT.md
+      - Contributing: CONTRIBUTING.md
+      - Code of conduct: CODE_OF_CONDUCT.md
+      - Security policy: SECURITY.md

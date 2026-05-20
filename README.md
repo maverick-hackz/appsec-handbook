@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./banner.png" alt="AppSec Handbook">
+  <img src="./assets/banner.png" alt="AppSec Handbook">
 </div>
 
 # AppSec Handbook
