@@ -1,0 +1,12 @@
+# Code owners for review assignment.
+# Documentation: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+* @maverick-hackz
+
+# Security-sensitive areas. Same owner today; listed explicitly so that
+# future co-maintainers do not silently inherit ownership.
+/devsecops/semgrep-rules/   @maverick-hackz
+/devsecops/ci-templates/    @maverick-hackz
+/devsecops/k8s-policies/    @maverick-hackz
+/SECURITY.md                @maverick-hackz
+/.github/                   @maverick-hackz
