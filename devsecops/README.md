@@ -7,14 +7,14 @@ supply-chain integrity.
 
 ## Files
 
-- [tool-categories.md](tool-categories.md) — SAST / SCA / DAST / MAST / IAST / RASP / ASPM
-- [pipeline-reference-architecture.md](pipeline-reference-architecture.md) — paved-road pipeline shape
-- [dockerfile-hardening.md](dockerfile-hardening.md) — container image baseline
-- [ci-templates/](ci-templates/) — drop-in YAML for GitHub Actions and GitLab CI
-- [pre-commit/](pre-commit/) — local hook config (gitleaks, ruff, hadolint, ...)
-- [semgrep-rules/](semgrep-rules/) — custom rules with `--test` cases
-- [k8s-policies/](k8s-policies/) — Pod Security Admission, NetworkPolicy, OPA Gatekeeper, Falco
-- [supply-chain/](supply-chain/) — SBOM, dependency pinning, SLSA
+- [Tool categories](tool-categories.md) — SAST / SCA / DAST / MAST / IAST / RASP / ASPM
+- [Pipeline reference architecture](pipeline-reference-architecture.md) — paved-road pipeline shape
+- [Dockerfile hardening](dockerfile-hardening.md) — container image baseline
+- [CI templates](ci-templates/) — drop-in YAML for GitHub Actions and GitLab CI
+- [Pre-commit hooks](pre-commit/) — local hook config (gitleaks, ruff, hadolint, ...)
+- [Semgrep rules](semgrep-rules/) — custom rules with `--test` cases
+- [Kubernetes policies](k8s-policies/) — Pod Security Admission, NetworkPolicy, OPA Gatekeeper, Falco
+- [Supply chain](supply-chain/) — SBOM, dependency pinning, SLSA
 
 ## Conventions
 
@@ -33,7 +33,7 @@ supply-chain integrity.
 ## What this section is NOT
 
 - A list of specific scanners with "buy this one" advice. Tool
-  selection lives in [../tooling-evaluation/](../tooling-evaluation/),
+  selection lives in [tooling evaluation](../tooling-evaluation/),
   driven by evaluation methodology rather than vendor pitches.
 - A replacement for the team's existing CI. The templates are
   drop-in references; adapt them to the platform you ship from.

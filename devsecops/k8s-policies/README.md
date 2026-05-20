@@ -1,14 +1,14 @@
 # Kubernetes Policies
 
 Cluster-level security controls that complement the container hardening
-in [../dockerfile-hardening.md](../dockerfile-hardening.md).
+in [Dockerfile hardening](../dockerfile-hardening.md).
 
 ## Files
 
-- [pod-security-admission.md](pod-security-admission.md) -- Pod Security Admission profiles and namespace labels
-- [network-policy-default-deny.yaml](network-policy-default-deny.yaml) -- default-deny NetworkPolicy
-- [opa-gatekeeper-constraints.md](opa-gatekeeper-constraints.md) -- three OPA Gatekeeper constraint templates
-- [falco-rules-starter.md](falco-rules-starter.md) -- five Falco runtime-detection rules
+- [Pod Security Admission](pod-security-admission.md) -- profiles and namespace labels
+- [Default-deny NetworkPolicy](network-policy-default-deny.yaml) -- baseline manifest
+- [OPA Gatekeeper constraints](opa-gatekeeper-constraints.md) -- three OPA Gatekeeper constraint templates
+- [Falco rules starter](falco-rules-starter.md) -- five Falco runtime-detection rules
 
 ## Layered controls
 

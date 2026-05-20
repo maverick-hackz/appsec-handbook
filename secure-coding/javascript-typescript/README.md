@@ -5,11 +5,11 @@ standard template (Threat, Insecure, Why it fails, Secure, Notes, References).
 
 ## Files
 
-- [prototype-pollution.md](prototype-pollution.md) — `Object.prototype` writes via merge / set helpers
-- [xss-react-vue.md](xss-react-vue.md) — React, Vue, and template auto-escape gaps
-- [nosql-injection.md](nosql-injection.md) — MongoDB query-operator injection
-- [jwt-handling.md](jwt-handling.md) — `alg=none`, key confusion, library pitfalls
-- [node-supply-chain.md](node-supply-chain.md) — `npm`, lockfiles, provenance, audit
+- [Prototype pollution](prototype-pollution.md) — `Object.prototype` writes via merge / set helpers
+- [XSS in React and Vue](xss-react-vue.md) — template auto-escape gaps
+- [NoSQL injection](nosql-injection.md) — MongoDB query-operator injection
+- [JWT handling](jwt-handling.md) — `alg=none`, key confusion, library pitfalls
+- [Node.js supply chain](node-supply-chain.md) — `npm`, lockfiles, provenance, audit
 
 ## Conventions
 

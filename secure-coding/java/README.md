@@ -5,11 +5,11 @@ JDK 17+ secure coding patterns. Each file follows the standard template
 
 ## Files
 
-- [injection-sql-jdbc.md](injection-sql-jdbc.md) — SQL injection via JDBC and JPA
-- [deserialization-jackson.md](deserialization-jackson.md) — polymorphic deserialization
-- [xxe-jaxb.md](xxe-jaxb.md) — XML external entity in JAXB / DocumentBuilder / SAX
-- [crypto-jca.md](crypto-jca.md) — JCA / JCE: AES-GCM, SecureRandom, password hashing
-- [spring-security-defaults.md](spring-security-defaults.md) — Spring Security 6 baseline
+- [SQL injection via JDBC and JPA](injection-sql-jdbc.md)
+- [Polymorphic deserialization with Jackson](deserialization-jackson.md)
+- [XXE in JAXB / DocumentBuilder / SAX](xxe-jaxb.md)
+- [Cryptography with JCA / JCE](crypto-jca.md) — AES-GCM, SecureRandom, password hashing
+- [Spring Security 6 defaults](spring-security-defaults.md) — Spring Security 6 baseline
 
 ## Conventions
 

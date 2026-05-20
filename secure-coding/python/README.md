@@ -5,11 +5,11 @@ Python 3.11+ secure coding patterns. Each file follows the standard template
 
 ## Files
 
-- [injection-sql-orm.md](injection-sql-orm.md) — SQLAlchemy and raw `psycopg` / `mysqlclient`
-- [deserialization-pickle.md](deserialization-pickle.md) — `pickle`, `yaml.load`, `marshal`
-- [ssti-jinja.md](ssti-jinja.md) — Jinja2 server-side template injection
-- [crypto-cryptography-lib.md](crypto-cryptography-lib.md) — `cryptography`, `secrets`, `argon2-cffi`
-- [django-flask-defaults.md](django-flask-defaults.md) — Django 5.x and Flask 3.x security defaults
+- [SQL injection with SQLAlchemy and raw drivers](injection-sql-orm.md) — `psycopg`, `mysqlclient`
+- [Insecure deserialization](deserialization-pickle.md) — `pickle`, `yaml.load`, `marshal`
+- [SSTI in Jinja2](ssti-jinja.md) — server-side template injection
+- [Cryptography library](crypto-cryptography-lib.md) — `cryptography`, `secrets`, `argon2-cffi`
+- [Django and Flask defaults](django-flask-defaults.md) — Django 5.x and Flask 3.x security defaults
 
 ## Conventions
 

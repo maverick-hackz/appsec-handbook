@@ -6,13 +6,13 @@ results, integration trials) rather than from a vendor pitch.
 
 ## Files
 
-- [sast-evaluation-methodology.md](sast-evaluation-methodology.md) -- SAST: precision / recall on a real corpus
-- [sca-evaluation-methodology.md](sca-evaluation-methodology.md) -- SCA: vuln DB sources, transitive resolution, reachability
-- [dast-evaluation-methodology.md](dast-evaluation-methodology.md) -- DAST: coverage, auth, API testing
-- [mast-evaluation-methodology.md](mast-evaluation-methodology.md) -- MAST: static + dynamic; MASVS alignment
-- [aspm-comparison-criteria.md](aspm-comparison-criteria.md) -- ASPM aggregation / prioritization platforms
-- [benchmark-projects.md](benchmark-projects.md) -- public deliberately-vulnerable corpora for testing tools
-- [proof-of-concept-template.md](proof-of-concept-template.md) -- vendor PoC report structure
+- [SAST evaluation methodology](sast-evaluation-methodology.md) -- SAST: precision / recall on a real corpus
+- [SCA evaluation methodology](sca-evaluation-methodology.md) -- SCA: vuln DB sources, transitive resolution, reachability
+- [DAST evaluation methodology](dast-evaluation-methodology.md) -- DAST: coverage, auth, API testing
+- [MAST evaluation methodology](mast-evaluation-methodology.md) -- MAST: static + dynamic; MASVS alignment
+- [ASPM comparison criteria](aspm-comparison-criteria.md) -- ASPM aggregation / prioritization platforms
+- [Benchmark projects](benchmark-projects.md) -- public deliberately-vulnerable corpora for testing tools
+- [Proof-of-concept report template](proof-of-concept-template.md) -- vendor PoC report structure
 
 ## Cross-cutting principles
 

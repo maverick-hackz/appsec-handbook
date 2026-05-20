@@ -5,10 +5,10 @@ talks, glossary.
 
 ## Files
 
-- [reading-list.md](reading-list.md) -- books and long-form sources, one line each
-- [standards-and-regulations.md](standards-and-regulations.md) -- frameworks and statutes with scope
-- [conferences-and-talks.md](conferences-and-talks.md) -- where the field talks to itself
-- [glossary.md](glossary.md) -- AppSec / DevSecOps terms
+- [Reading list](reading-list.md) -- books and long-form sources, one line each
+- [Standards and regulations](standards-and-regulations.md) -- frameworks and statutes with scope
+- [Conferences and talks](conferences-and-talks.md) -- where the field talks to itself
+- [Glossary](glossary.md) -- AppSec / DevSecOps terms
 
 ## Curation policy
 

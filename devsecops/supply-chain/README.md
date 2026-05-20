@@ -5,9 +5,9 @@ source through build to deployment.
 
 ## Files
 
-- [sbom-generation.md](sbom-generation.md) -- generating CycloneDX and SPDX SBOMs with Syft
-- [dependency-pinning.md](dependency-pinning.md) -- lockfiles, hash-pinning, Renovate / Dependabot
-- [slsa-levels.md](slsa-levels.md) -- SLSA v1.0 levels and how to reach each
+- [SBOM generation](sbom-generation.md) -- generating CycloneDX and SPDX SBOMs with Syft
+- [Dependency pinning](dependency-pinning.md) -- lockfiles, hash-pinning, Renovate / Dependabot
+- [SLSA levels](slsa-levels.md) -- SLSA v1.0 levels and how to reach each
 
 ## Operational summary
 
@@ -38,8 +38,8 @@ What this set of controls mitigates:
 
 - A CSPM / cloud-posture guide. Those controls live at the cloud
   provider, not in the artifact lifecycle.
-- An SCA tool selection guide (see [../tool-categories.md](../tool-categories.md))
-  or evaluation methodology (see [../../tooling-evaluation/](../../tooling-evaluation/)).
+- An SCA tool selection guide (see [tool categories](../tool-categories.md))
+  or evaluation methodology (see [tooling evaluation](../../tooling-evaluation/)).
 
 ## References
 

@@ -5,11 +5,11 @@ Go 1.21+ secure coding patterns. Each file follows the standard template
 
 ## Files
 
-- [injection-sql-database-sql.md](injection-sql-database-sql.md) — `database/sql` parameterization
-- [path-traversal.md](path-traversal.md) — `filepath.Clean`, base-directory anchoring, `os.Root` (1.24+)
-- [ssrf-net-http.md](ssrf-net-http.md) — outbound HTTP from user URLs
-- [crypto-stdlib.md](crypto-stdlib.md) — `crypto/rand`, `crypto/cipher`, `x/crypto`
-- [concurrency-pitfalls.md](concurrency-pitfalls.md) — races, TOCTOU, leaks
+- [SQL injection with `database/sql`](injection-sql-database-sql.md) — parameterization
+- [Path traversal](path-traversal.md) — `filepath.Clean`, base-directory anchoring, `os.Root` (1.24+)
+- [SSRF in `net/http`](ssrf-net-http.md) — outbound HTTP from user URLs
+- [Cryptography: stdlib + `x/crypto`](crypto-stdlib.md) — `crypto/rand`, `crypto/cipher`, `x/crypto`
+- [Concurrency pitfalls](concurrency-pitfalls.md) — races, TOCTOU, leaks
 
 ## Conventions
 

@@ -16,15 +16,15 @@ payloads, and pentest tooling live in a separate repository:
 
 | Section | Purpose |
 | --- | --- |
-| [secure-coding/](secure-coding/) | Language-specific guidelines with insecure to secure examples |
-| [threat-modeling/](threat-modeling/) | STRIDE/PASTA/Attack Trees methodology, templates, worked examples |
-| [secure-sdlc/](secure-sdlc/) | Requirements, code review, security gates, VDP templates |
-| [devsecops/](devsecops/) | CI/CD security templates, pre-commit, custom Semgrep rules, K8s policies |
-| [frameworks/](frameworks/) | ASVS, SAMM, NIST SSDF, OWASP Top 10 (Web/API/LLM/CI-CD), CWE Top 25 |
-| [architecture/](architecture/) | Zero Trust, OAuth2/OIDC/SAML/mTLS, crypto, secrets management |
-| [tooling-evaluation/](tooling-evaluation/) | SAST/SCA/DAST/MAST/ASPM evaluation methodology |
-| [writeups/](writeups/) | Sanitized finding writeups: Finding -> Impact (CVSS 3.1) -> Repro -> Fix |
-| [references/](references/) | Reading list, standards, conferences, glossary |
+| [Secure coding](secure-coding/) | Language-specific guidelines with insecure to secure examples |
+| [Threat modeling](threat-modeling/) | STRIDE/PASTA/Attack Trees methodology, templates, worked examples |
+| [Secure SDLC](secure-sdlc/) | Requirements, code review, security gates, VDP templates |
+| [DevSecOps](devsecops/) | CI/CD security templates, pre-commit, custom Semgrep rules, K8s policies |
+| [Frameworks](frameworks/) | ASVS, SAMM, NIST SSDF, OWASP Top 10 (Web/API/LLM/CI-CD), CWE Top 25 |
+| [Architecture](architecture/) | Zero Trust, OAuth2/OIDC/SAML/mTLS, crypto, secrets management |
+| [Tooling evaluation](tooling-evaluation/) | SAST/SCA/DAST/MAST/ASPM evaluation methodology |
+| [Writeups](writeups/) | Sanitized finding writeups: Finding -> Impact (CVSS 3.1) -> Repro -> Fix |
+| [References](references/) | Reading list, standards, conferences, glossary |
 
 ## Intended audience
 
