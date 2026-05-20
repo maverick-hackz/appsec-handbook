@@ -109,10 +109,10 @@ jobs:
           python-version: "3.12"
       - name: Install Semgrep
         run: |
-          # setuptools is required transitively: opentelemetry-instrumentation
-          # (pulled in by semgrep<1.100) still imports pkg_resources, which
-          # was removed from the Python 3.12 standard library.
-          pip install --no-cache-dir 'setuptools>=75'
+          # opentelemetry-instrumentation (a transitive dep of semgrep) still
+          # imports pkg_resources. setuptools 81 removed pkg_resources, so
+          # pin under that until semgrep drops the dependency.
+          pip install --no-cache-dir 'setuptools>=75,<81'
           pip install --no-cache-dir 'semgrep==1.96.0'
       - name: Validate rules
         run: semgrep --config devsecops/semgrep-rules/ --validate
