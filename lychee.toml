@@ -1,0 +1,49 @@
+# Lychee link checker configuration.
+# Documentation: https://github.com/lycheeverse/lychee/blob/master/docs/CONFIGURATION.md
+
+# Networking
+max_concurrency = 8
+max_retries = 3
+retry_wait_time = 10
+timeout = 30
+
+# Many vendor sites and CDNs reject HEAD or block CI ranges. Use GET so that
+# results reflect what a reader sees in a browser.
+method = "get"
+
+# Status policy:
+#   200..=299 : healthy.
+#   206       : partial content; some CDNs return this for ranged GETs.
+#   403       : commonly returned by Cloudflare to GitHub Actions egress IPs.
+#   429       : rate-limited; transient and not a real link defect.
+accept = ["200..=299", "403", "429"]
+
+# Cache responses across runs to avoid re-hitting rate limits.
+cache = true
+max_cache_age = "1d"
+
+# Inspect URLs that appear inside fenced code blocks. Many references in
+# this repository are embedded in example output and command lines.
+include_verbatim = true
+
+# Fragment checks (#anchors) are unreliable on vendor pages that use
+# client-side rendering. Disabled by default.
+include_fragments = false
+
+# Skip non-public or placeholder URLs.
+exclude = [
+  "^https?://localhost(:|/|$)",
+  "^https?://127\\.0\\.0\\.1(:|/|$)",
+  "^https?://0\\.0\\.0\\.0(:|/|$)",
+  "^https?://example\\.com(:|/|$)",
+  "^https?://example\\.org(:|/|$)",
+  "vault\\.example\\.com",
+  "internal\\.example",
+]
+
+# User-agent identifying the checker; some sites serve different content
+# or block default `lychee/x.y` clients.
+user_agent = "Mozilla/5.0 (compatible; lychee link-checker; +https://github.com/lycheeverse/lychee)"
+
+# mailto: links are inactive by default (include_mail = false), so they
+# do not need an explicit exclusion.

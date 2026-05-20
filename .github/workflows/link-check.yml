@@ -1,0 +1,103 @@
+# Link checker.
+#
+# Two modes:
+#
+#   1. On every pull request and push to main: offline mode only. Relative
+#      links and anchors inside the repository must resolve. External hosts
+#      are not contacted, so this step is deterministic and contributor-safe.
+#
+#   2. Weekly on a schedule: full mode with network access. External links
+#      that have rotted are reported as a tracking issue, not as a failed
+#      build, because link rot is a maintenance task rather than a defect
+#      in any individual commit.
+
+name: link-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Mondays 09:00 UTC. Times during DST changes drift by an hour, which is
+    # acceptable for a weekly job.
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: link-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  internal:
+    name: relative links (offline, blocking)
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: lychee-offline-${{ github.sha }}
+          restore-keys: |
+            lychee-offline-
+
+      - name: Run lychee (offline)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --config lychee.toml
+            --offline
+            --no-progress
+            './**/*.md'
+          fail: true
+
+  external:
+    name: external links (network, advisory)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          # Weekly job: stable primary key keyed on the year-week so the
+          # cache is reused across runs in the same week and invalidated
+          # naturally between weeks.
+          key: lychee-full-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            lychee-full-
+
+      - name: Run lychee (full)
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --config lychee.toml
+            --no-progress
+            './**/*.md'
+          # Do not fail the job: link rot is reported as an issue below.
+          fail: false
+          output: ./lychee-report.md
+
+      - name: Create or update tracking issue
+        if: steps.lychee.outputs.exit_code != '0'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "link-rot: scheduled lychee report (${{ github.run_id }})"
+          content-filepath: ./lychee-report.md
+          labels: |
+            link-rot
+            maintenance
