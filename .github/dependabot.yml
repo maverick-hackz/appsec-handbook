@@ -1,0 +1,40 @@
+# Dependabot configuration. See the GitHub docs for the full schema:
+# docs.github.com -> Code security -> Dependabot -> Configuration options.
+#
+# Scope: GitHub Actions in .github/workflows/ (the handbook's own CI) and
+# Python dependencies in requirements-docs.txt (mkdocs-material + plugins).
+#
+# Out of scope: the educational CI templates under devsecops/ci-templates/.
+# Dependabot's github-actions ecosystem only inspects .github/workflows/, so
+# the templates are not touched automatically. They are versioned by hand
+# alongside the handbook prose that references them.
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Moscow
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: deps
+    labels:
+      - dependencies
+      - github-actions
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Moscow
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: deps
+    labels:
+      - dependencies
+      - python

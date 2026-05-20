@@ -1,0 +1,130 @@
+# CI for the handbook itself: markdown, YAML, GitHub Actions, and Semgrep
+# rule validation. Educational CI templates under devsecops/ci-templates/
+# are validated structurally by actionlint; they are not executed here.
+#
+# Action references are version tags by default. Dependabot is configured
+# in .github/dependabot.yml and will rewrite them as `<sha>  # vN.M.K` in
+# follow-up PRs as updates roll in. This mirrors the supply-chain guidance
+# the handbook gives in devsecops/ci-templates/.
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  markdownlint:
+    name: markdownlint
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v18
+        with:
+          globs: |
+            **/*.md
+            !**/node_modules/**
+
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install yamllint
+        run: pip install --no-cache-dir 'yamllint==1.35.1'
+      - name: Run yamllint
+        # Relaxed config: long lines and missing document-start markers are
+        # acceptable in educational YAML snippets. Real violations
+        # (truthy, indentation, trailing-spaces) still fail. `--strict` is
+        # intentionally off so that line-length warnings are reported but
+        # do not block contributions.
+        run: |
+          yamllint -d '{
+            extends: default,
+            rules: {
+              line-length: {max: 120, level: warning},
+              document-start: disable,
+              comments-indentation: disable,
+              truthy: {allowed-values: ["true", "false"], check-keys: false}
+            }
+          }' devsecops/ .github/
+
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install actionlint
+        # Uses the official installer script from the actionlint repository,
+        # which downloads a release binary matching the pinned version.
+        # Replace the version-only pin with a release binary checksum if you
+        # need stricter supply-chain assurances; see the handbook's own
+        # devsecops/ci-templates/ for that pattern.
+        run: |
+          ACTIONLINT_VERSION=1.7.7
+          INSTALLER="https://raw.githubusercontent.com/rhysd/actionlint/v${ACTIONLINT_VERSION}/scripts/download-actionlint.bash"
+          bash <(curl -sSL "$INSTALLER") "$ACTIONLINT_VERSION"
+          echo "ACTIONLINT_BIN=$(pwd)/actionlint" >> "$GITHUB_ENV"
+      - name: Lint handbook workflows
+        run: |
+          "$ACTIONLINT_BIN" -color .github/workflows/*.yml
+      - name: Lint educational templates (advisory)
+        # Educational templates may intentionally omit elements (for example,
+        # `permissions:` is sometimes shown in a later step of the prose).
+        # Treat findings as advisory so they do not block contributions.
+        continue-on-error: true
+        run: |
+          if compgen -G "devsecops/ci-templates/github-actions/*.yml" > /dev/null; then
+            "$ACTIONLINT_BIN" -color devsecops/ci-templates/github-actions/*.yml
+          else
+            echo "no github-actions templates found"
+          fi
+
+  semgrep-rules:
+    name: semgrep rule validate and test
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Semgrep
+        run: |
+          # setuptools is required transitively: opentelemetry-instrumentation
+          # (pulled in by semgrep<1.100) still imports pkg_resources, which
+          # was removed from the Python 3.12 standard library.
+          pip install --no-cache-dir 'setuptools>=75'
+          pip install --no-cache-dir 'semgrep==1.96.0'
+      - name: Validate rules
+        run: semgrep --config devsecops/semgrep-rules/ --validate
+      - name: Test rules
+        # Tests require <rule>.test.<ext> fixture files in semgrep's expected
+        # layout. If no fixtures are present, this step is a no-op rather
+        # than a failure: rule-test fixtures are tracked separately and may
+        # be introduced after rules. The job still fails if fixtures exist
+        # and tests fail.
+        run: |
+          if find devsecops/semgrep-rules -name '*.test.*' -print -quit | grep -q .; then
+            semgrep --config devsecops/semgrep-rules/ --test
+          else
+            echo "no semgrep test fixtures found; skipping --test"
+          fi
