@@ -1,0 +1,65 @@
+name: Defect or inaccuracy
+description: Report incorrect, outdated, or unsafe guidance in the handbook.
+title: "[bug]: <short description>"
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to report a defect in the handbook content,
+        Semgrep rules, CI/CD templates, or Kubernetes policies. For
+        security vulnerabilities in the materials (insecure defaults,
+        false-negative detection logic), prefer the private channel in
+        `SECURITY.md` instead of a public issue.
+
+  - type: input
+    id: location
+    attributes:
+      label: Affected file or rule
+      description: Path, or rule identifier for Semgrep findings.
+      placeholder: "secure-coding/python/deserialization-pickle.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong, and why
+      description: >-
+        Describe the inaccuracy and the consequence of acting on the current
+        text. State the assumption that breaks or the misconception it
+        creates.
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Authoritative source for the correction
+      description: >-
+        OWASP, NIST, MITRE, RFC, or vendor documentation that supports the
+        proposed correction. Blogs are supporting material, not primary
+        sources.
+      placeholder: |
+        - RFC 7515 §10.7 (https://www.rfc-editor.org/rfc/rfc7515#section-10.7)
+        - NVD entry for CVE-YYYY-NNNNN
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-text
+    attributes:
+      label: Suggested correction (optional)
+      description: >-
+        Drop-in text or a sketch of the fix. PRs are welcome instead of
+        suggestions; both forms are accepted.
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I checked for an existing open or recently closed issue covering this defect.
+          required: true
+        - label: My report does not include internal or proprietary information.
+          required: true

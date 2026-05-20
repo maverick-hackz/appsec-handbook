@@ -1,0 +1,74 @@
+name: Content request
+description: Propose a new section, writeup, secure-coding entry, or framework mapping.
+title: "[content]: <short description>"
+labels: ["content", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose new material. Out of scope: offensive
+        payloads and pentest cheatsheets (see CONTRIBUTING.md). Those
+        belong in https://github.com/maverick-hackz/Workstation.
+
+  - type: dropdown
+    id: section
+    attributes:
+      label: Target section
+      options:
+        - secure-coding/
+        - threat-modeling/
+        - secure-sdlc/
+        - devsecops/
+        - frameworks/
+        - architecture/
+        - tooling-evaluation/
+        - writeups/
+        - references/
+        - new top-level section
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope
+      description: >-
+        What does the new material cover, and what does it intentionally
+        exclude? Two or three sentences.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why this fits the handbook
+      description: >-
+        How does the proposal map to the audiences listed in the README
+        (AppSec engineers, developers, security architects, hiring
+        managers evaluating depth)?
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Primary sources you will cite
+      description: OWASP, NIST, MITRE, RFC, or vendor documentation.
+      placeholder: |
+        - OWASP API Security Top 10 2023, API1:2023
+        - NIST SP 800-204C
+        - RFC 9449
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: The proposal does not duplicate existing material in this repository.
+          required: true
+        - label: The proposal does not introduce offensive payloads or pentest cheatsheets.
+          required: true
+        - label: The proposal will follow the template in the target section's README.
+          required: true
