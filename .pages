@@ -2,17 +2,19 @@ title: AppSec Handbook
 
 nav:
   - Home: README.md
-  - secure-coding
-  - threat-modeling
-  - secure-sdlc
-  - devsecops
-  - frameworks
-  - architecture
-  - tooling-evaluation
-  - writeups
-  - references
+  - Secure coding: secure-coding
+  - Threat modeling: threat-modeling
+  - Secure SDLC: secure-sdlc
+  - DevSecOps: devsecops
+  - Frameworks: frameworks
+  - Architecture: architecture
+  - Tooling evaluation: tooling-evaluation
+  - Writeups: writeups
+  - References: references
   - About:
-      - About: ABOUT.md
+      # ABOUT.md becomes the section landing via the mkdocs-section-index
+      # plugin, so there is no duplicate "About" entry inside the dropdown.
+      - ABOUT.md
       - Contributing: CONTRIBUTING.md
       - Code of conduct: CODE_OF_CONDUCT.md
       - Security policy: SECURITY.md

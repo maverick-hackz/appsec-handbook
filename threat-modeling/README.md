@@ -7,16 +7,22 @@ of software systems and pipelines.
 
 - [methodology.md](methodology.md) — STRIDE, PASTA, attack trees, LINDDUN — what each is for
 - [when-to-use-what.md](when-to-use-what.md) — decision matrix per context
-- Templates:
-  - [stride-per-element.md](templates/stride-per-element.md)
-  - [pasta-stage-template.md](templates/pasta-stage-template.md)
-  - [attack-tree-template.md](templates/attack-tree-template.md)
-  - [dfd-conventions.md](templates/dfd-conventions.md)
-- Examples (sanitized, generic systems):
-  - [rest-api-oauth2.md](examples/rest-api-oauth2.md)
-  - [mobile-messaging-app.md](examples/mobile-messaging-app.md)
-  - [sso-oidc-broker.md](examples/sso-oidc-broker.md)
-  - [ci-cd-pipeline.md](examples/ci-cd-pipeline.md)
+
+### Templates
+
+- [stride-per-element.md](templates/stride-per-element.md)
+- [pasta-stage-template.md](templates/pasta-stage-template.md)
+- [attack-tree-template.md](templates/attack-tree-template.md)
+- [dfd-conventions.md](templates/dfd-conventions.md)
+
+### Examples
+
+Sanitized, generic systems:
+
+- [rest-api-oauth2.md](examples/rest-api-oauth2.md)
+- [mobile-messaging-app.md](examples/mobile-messaging-app.md)
+- [sso-oidc-broker.md](examples/sso-oidc-broker.md)
+- [ci-cd-pipeline.md](examples/ci-cd-pipeline.md)
 
 ## When to model
 

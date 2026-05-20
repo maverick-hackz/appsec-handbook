@@ -68,6 +68,12 @@ plugins:
       type: date
       fallback_to_build_date: true
 
+hooks:
+  # Strips a trailing `.md` from inline link text so the rendered site
+  # reads [name](url) while the source READMEs keep [name.md](url) for
+  # GitHub's own renderer. See hooks/strip_md_in_link_text.py.
+  - hooks/strip_md_in_link_text.py
+
 markdown_extensions:
   - admonition
   - attr_list
